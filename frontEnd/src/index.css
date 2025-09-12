@@ -1,1 +1,4 @@
 @import "tailwindcss";
+@theme {
+  --color-p-400: #ff385c;
+}
