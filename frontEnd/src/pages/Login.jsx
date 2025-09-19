@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("test2@gmail.com");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEmail("test2@gmail.com");
+  };
   return (
     <section className="flex items-center">
       <div className="mx-auto flex w-full max-w-96 flex-col items-center gap-4 p-8"></div>
       <h1 className="text=3xl font-bold">Faça seu Login</h1>
 
-      <form action="" className="flex w-full flex-col gap-2">
+      <form
+        action=""
+        className="flex w-full flex-col gap-2"
+        onSubmit={handleSubmit}
+      >
         <input
           type="email"
           placeholder="Digite se E-mail"
