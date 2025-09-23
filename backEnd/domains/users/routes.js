@@ -20,6 +20,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/profile", async (req, res) => {
+  const { token } = req.cookies;
+  if (token) {
+    try {
+      const userInfo = jwt.verify(token, JWT_SECRET_KEY);
+      res.json(userInfo);
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  } else {
+    res.json(null);
+  }
+});
+
 router.post("/", async (req, res) => {
   connectDB();
 
@@ -54,8 +68,6 @@ router.post("/login", async (req, res) => {
       if (passwordCorrect) {
         const newUserObj = { name, email, _id };
         const token = jwt.sign(newUserObj, JWT_SECRET_KEY);
-
-        console.log({ token, JWT_SECRET_KEY });
 
         res.cookie("token", token).json(newUserObj);
       } else {
