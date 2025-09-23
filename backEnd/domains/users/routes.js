@@ -2,9 +2,12 @@ import { Router } from "express";
 import { connectDB } from "../../config/db.js";
 import User from "./domains/users/model.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const router = Router();
 const bcryptSalt = bcrypt.genSaltSync();
+const { JWT_SECRET_KEY } = process.env;
 
 router.get("/", async (req, res) => {
   connectDB();
@@ -48,9 +51,16 @@ router.post("/login", async (req, res) => {
       const passwordCorrect = bcrypt.compareSync(password, userDoc.password);
       const { name, _id } = userDoc;
 
-      passwordCorrect
-        ? res.json(name, email, _id)
-        : res.status(400).json("Senha Inválida!");
+      if (passwordCorrect) {
+        const newUserObj = { name, email, _id };
+        const token = jwt.sign(newUserObj, JWT_SECRET_KEY);
+
+        console.log({ token, JWT_SECRET_KEY });
+
+        res.cookie("token", token).json(newUserObj);
+      } else {
+        res.status(400).json("Senha Inválida!");
+      }
     } else {
       res.status(400).json("Usuário não encontrado");
     }
