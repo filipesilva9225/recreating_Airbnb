@@ -1,0 +1,35 @@
+import React from "react";
+import axios from "axios";
+
+const AccProfile = ({ user, setUser }) => {
+  const [redirect, setRedirect] = useState(false);
+
+  const logout = async () => {
+    try {
+      const { data } = await axios.post("/users/logout");
+      console.log(data);
+      setUser(null);
+      setRedirect(true);
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  };
+  if (redirect) return <navigate to="/" />;
+
+  if (!user) return <></>;
+  return (
+    <div className="fle-col flex items-center gap-4">
+      <p>
+        Logado como {user?.name} ({user?.email})
+      </p>
+      <button
+        onClick={logout}
+        className="bg-p-400 min-w-44 cursor-pointer rounded-full px-4 py-2 text-white transition"
+      >
+        Logout
+      </button>
+    </div>
+  );
+};
+
+export default AccProfile;
