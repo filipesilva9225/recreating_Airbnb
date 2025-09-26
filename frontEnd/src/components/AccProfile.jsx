@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useUserContext } from "../contexts/UserContext";
 
-const AccProfile = ({ user, setUser }) => {
+const AccProfile = () => {
+  const [user, setUser] = useUserContext;
   const [redirect, setRedirect] = useState(false);
 
   const logout = async () => {

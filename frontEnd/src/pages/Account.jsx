@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import AccProfile from "../components/AccProfile";
 
-const Account = (user) => {
+const Account = () => {
   const { subpage } = useParams();
 
   const buttonClass = (button) => {
