@@ -1,4 +1,6 @@
 @import "tailwindcss";
 @theme {
-  --color-p-400: #ff385c;
+  --color-p-400: hsl(349, 100%, 61%);
+  --color-p-500: hsl(349, 100%, 51%);
+  --color-p-600: hsl(349, 100%, 41%);
 }
